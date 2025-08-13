@@ -4,7 +4,7 @@
 
 ![Discord.js](https://img.shields.io/badge/Discord.js-v13.16.0+-blue.svg)
 ![Node.js](https://img.shields.io/badge/Node.js-16.x+-green.svg)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+![License](https://img.shields.io/badge/License-ApacheLicense-yellow.svg)
 ![Maintenance](https://img.shields.io/badge/Maintained-Yes-brightgreen.svg)
 
 ### 🚀 NO API KEYS REQUIRED - Easy Setup & Deployment
