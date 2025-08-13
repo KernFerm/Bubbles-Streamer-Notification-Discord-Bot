@@ -329,7 +329,7 @@ This project is licensed under the Apache License License - see the [LICENSE](./
 ### Credits
 - Built by [BankkRoll](https://github.com/BankkRoll)
 - Powered by [Sapphire Framework](https://www.sapphiredev.org/)
-- Enhanced & Built With ❤️ [BubblesTheDev](https://github.com/kernferm)
+- Enhanced & Built With ❤️ by [BubblesTheDev](https://github.com/kernferm)
 - Icons and assets from respective platforms
 
 ---
