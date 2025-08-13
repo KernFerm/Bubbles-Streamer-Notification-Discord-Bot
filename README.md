@@ -2,11 +2,11 @@
 
 ![Discord.js](https://img.shields.io/badge/Discord.js-v14.21.0+-blue.svg)
 ![Node.js](https://img.shields.io/badge/Node.js-16.x+-green.svg)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg)
 ![Maintenance](https://img.shields.io/badge/Maintained-Yes-brightgreen.svg)
 
-
 # Streamer Alerts Discord Bot
+
 
 ### 🚀 NO API KEYS REQUIRED - Easy Setup & Deployment
 
@@ -315,7 +315,7 @@ See our [Security Policy](./SECURITY.md) for more details.
 ## 📄 License & Legal
 
 ### License
-This project is licensed under the Apache License License - see the [LICENSE](./LICENSE) file for details.
+This project is licensed under the Apache License 2.0 - see the [LICENSE](./LICENSE) file for details.
 
 ### Important Disclaimers
 
