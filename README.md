@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg)
 ![Maintenance](https://img.shields.io/badge/Maintained-Yes-brightgreen.svg)
 
-# Streamer Alerts Discord Bot
+# Bubbles Streamer Notification Discord Bot
 
 
 ### 🚀 NO API KEYS REQUIRED - Easy Setup & Deployment
@@ -18,7 +18,7 @@
 
 ![pic](https://github.com/KernFerm/Bubbles-Streamer-Notification-Discord-Bot/blob/main/screenshot/screenshot-noti.png)
 
-**Streamer Alerts Bot** is a feature-rich Discord bot built with the Sapphire Framework that automatically monitors your favorite streamers across multiple platforms and sends instant notifications when they go live. Perfect for communities wanting to stay updated with their favorite content creators!
+**Bubbles Streamer Notification Bot** is a feature-rich Discord bot built with the Sapphire Framework that automatically monitors your favorite streamers across multiple platforms and sends instant notifications when they go live. Perfect for communities wanting to stay updated with their favorite content creators!
 
 ### ✨ Key Features
 
@@ -80,7 +80,7 @@
    DISCORD_TOKEN=your_bot_token_here
    DISCORD_APPLICATION_ID=your_application_id_here
    BOT_COLOR=#61CB2B
-   FOOTER_TEXT=Streamer Alerts Bot
+   FOOTER_TEXT=Bubbles Streamer Notification Bot
    FOOTER_ICON=https://your-icon-url.com/icon.png
    ```
 
@@ -172,7 +172,7 @@ Create a `.env` file in your project root:
 DISCORD_TOKEN=your_bot_token_here
 DISCORD_APPLICATION_ID=your_application_id_here
 BOT_COLOR=#61CB2B
-FOOTER_TEXT=Streamer Alerts Bot
+FOOTER_TEXT=Bubbles Streamer Notification Bot
 FOOTER_ICON=https://your-icon-url.com/icon.png
 ```
 
