@@ -18,14 +18,15 @@
     "@sapphire/ratelimits": "^2.4.4",
     "@sapphire/time-utilities": "^1.7.6",
     "discord.js": "^14.21.0",
+    "dotenv": "^16.4.5",
     "enmap": "^6.0.5",
     "kick.com-api": "^0.2.0",
     "moment": "^2.29.4",
-    "sapphire-plugin-modal-commands": "^1.0.9",
     "tiktok-live-connector": "^2.0.3"
   },
   "devDependencies": {
-    "eslint": "^8.0.0",
+    "@eslint/js": "^9.9.0",
+    "eslint": "^9.9.0",
     "jest": "^30.0.5",
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2"
