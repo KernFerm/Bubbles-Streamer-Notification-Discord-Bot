@@ -2,11 +2,12 @@
 
 ## Supported Versions
 
-We currently support the following versions of the Streamer Alerts Discord Bot with security updates:
+We currently support the following versions of the Bubbles Streamer Notification Discord Bot with security updates:
 
 | Version | Supported          | Node.js | Discord.js | Status |
 | ------- | ------------------ | ------- | ---------- | ------ |
-| 1.0.x   | :white_check_mark: | 16.x+   | 13.16.0+   | Active |
+| 2.0.x   | :white_check_mark: | 16.x+   | 14.21.0+   | Active |
+| 1.0.x   | :x:                | 16.x+   | 13.16.0+   | EOL    |
 | < 1.0   | :x:                | -       | -          | EOL    |
 
 ### Version Support Policy
@@ -20,16 +21,18 @@ We currently support the following versions of the Streamer Alerts Discord Bot w
 Our bot relies on several key dependencies. We maintain compatibility with:
 
 - **Node.js**: 16.x or higher (LTS recommended)
-- **Discord.js**: 13.16.0 or higher
-- **Sapphire Framework**: 3.1.0 or higher
+- **Discord.js**: 14.21.0 or higher
+- **Sapphire Framework**: 5.3.6 or higher
 - **Enmap**: 6.0.5 or higher
+- **dotenv**: 16.4.5 or higher for secure environment variable management
 
 ### Upgrade Recommendations
 
-- Always use the latest stable version for the best security posture
+- Always use the latest stable version (2.0.x) for the best security posture
 - Keep Node.js updated to the latest LTS version
 - Regularly update dependencies using `npm audit` and `npm update`
 - Monitor our releases for security announcements
+- Migrate from config.json to environment variables for enhanced security
 
 ## Reporting a Vulnerability
 
@@ -38,11 +41,12 @@ We take security vulnerabilities seriously. If you discover a security vulnerabi
 ### How to Report
 
 1. **DO NOT** create a public GitHub issue for security vulnerabilities
-2. Send an email to the project maintainers with details about the vulnerability
+2. Send an email to the project maintainers or create a private security advisory on GitHub
 3. Include as much information as possible:
    - Description of the vulnerability
    - Steps to reproduce the issue
    - Potential impact
+   - Bot version and environment details
    - Suggested fix (if any)
 
 ### What to Expect
@@ -57,10 +61,17 @@ We take security vulnerabilities seriously. If you discover a security vulnerabi
 When using this bot, please follow these security recommendations:
 
 #### Bot Token Security
-- Never commit your bot token to version control
-- Use environment variables or secure configuration files
-- Regenerate tokens if compromised
+- **REQUIRED**: Use environment variables (`.env` file) for bot tokens and Application IDs
+- Never commit tokens or sensitive data to version control
+- Regenerate tokens immediately if compromised
 - Limit bot permissions to only what's necessary
+- Always set `DISCORD_TOKEN` and `DISCORD_APPLICATION_ID` in your environment
+
+#### Environment Security
+- Use `.env` files for local development (automatically ignored by git)
+- Set environment variables directly on production servers
+- Never use config.json files in production environments
+- Regularly rotate tokens and API keys
 
 #### Server Security
 - Keep your hosting environment updated
@@ -77,8 +88,9 @@ When using this bot, please follow these security recommendations:
 ### Scope
 
 This security policy covers:
-- The main bot application code
+- The main bot application code (Bubbles Streamer Notification Discord Bot)
 - Configuration and setup scripts
+- Environment variable security practices
 - Dependencies and their known vulnerabilities
 - Deployment and hosting recommendations
 
