@@ -286,7 +286,7 @@ We welcome contributions to make this bot even better! Here's how you can help:
 
 #### Bot Not Responding
 - ✅ Check if the bot is online in your server
-- ✅ Verify the bot token in `config.json`
+- ✅ Verify the bot token in `.env.example`
 - ✅ Ensure the bot has proper permissions
 - ✅ Check console for error messages
 
