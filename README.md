@@ -45,8 +45,16 @@
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) 16.x or higher
-- A Discord bot token ([Create one here](https://discord.com/developers/applications))
+- A Discord bot token and Application ID ([Create one here](https://discord.com/developers/applications))
 - Discord server with appropriate permissions
+
+### Getting Your Discord Credentials
+
+1. **Go to [Discord Developer Portal](https://discord.com/developers/applications)**
+2. **Create New Application** or select existing one
+3. **Copy Application ID** from the General Information page
+4. **Go to Bot section** and copy the Bot Token
+5. **Important**: Keep both credentials secure and never share them publicly!
 
 ### Installation
 
@@ -63,18 +71,17 @@
 
 3. **Configure the Bot**
    ```bash
-   # Copy the example config file
-   cp config.json.example config.json
+   # Copy the example environment file
+   cp .env.example .env
    ```
    
-   Edit `config.json` with your bot settings:
-   ```json
-   {
-     "token": "YOUR_BOT_TOKEN_HERE",
-     "color": "#0099ff",
-     "footerText": "Streamer Alerts Bot",
-     "footerIcon": "https://your-icon-url.com/icon.png"
-   }
+   Edit `.env` with your bot settings:
+   ```env
+   DISCORD_TOKEN=your_bot_token_here
+   DISCORD_APPLICATION_ID=your_application_id_here
+   BOT_COLOR=#61CB2B
+   FOOTER_TEXT=Streamer Alerts Bot
+   FOOTER_ICON=https://your-icon-url.com/icon.png
    ```
 
 4. **Start the Bot**
@@ -147,23 +154,34 @@ streamer-alerts-discord-bot/
 │   │   ├── rumble.js               # Rumble platform handler
 │   │   └── tiktok.js               # TikTok platform handler
 │   └── index.js                    # Main bot entry point
+├── .env.example                    # Environment configuration template
+├── .gitignore                      # Git ignore file for security
 ├── db.js                           # Database management
-├── config.json.example             # Configuration template
 ├── package.json                    # Project dependencies
 └── README.md                       # This file
 ```
 
 ## ⚙️ Configuration
 
-### Environment Variables
-You can use environment variables instead of `config.json`:
+### 🔐 Environment Variables
+**This is the secure way to configure your bot**. Environment variables keep sensitive data out of your code and git repository.
 
-```bash
+Create a `.env` file in your project root:
+
+```env
 DISCORD_TOKEN=your_bot_token_here
-BOT_COLOR=#0099ff
-FOOTER_TEXT="Streamer Alerts Bot"
-FOOTER_ICON="https://your-icon-url.com/icon.png"
+DISCORD_APPLICATION_ID=your_application_id_here
+BOT_COLOR=#61CB2B
+FOOTER_TEXT=Streamer Alerts Bot
+FOOTER_ICON=https://your-icon-url.com/icon.png
 ```
+
+###  Security Best Practices
+- ✅ **Use environment variables** for sensitive data
+- ✅ **Never commit** tokens or API keys to git
+- ✅ **Use .env files** for local development
+- ✅ **Set environment variables** on production servers
+- ✅ **Keep credentials secure** and rotate them regularly
 
 ### Bot Permissions
 Ensure your bot has these permissions in your Discord server:
@@ -283,6 +301,14 @@ We welcome contributions to make this bot even better! Here's how you can help:
 - ✅ Wait a few minutes for commands to sync
 - ✅ Check if you have the required permissions
 
+#### Dependency Warnings During Installation
+When running `npm install`, you may see warnings about deprecated packages:
+- ⚠️ `puppeteer@23.11.1` - Used by kick.com-api (external dependency)
+- ⚠️ `glob@7.2.3` and `inflight@1.0.6` - Used by Jest testing framework
+- ⚠️ `yaeti@0.0.6` - Used by tiktok-live-connector (external dependency)
+
+**These warnings are safe to ignore** as they come from third-party packages and don't affect the bot's functionality. The bot's core dependencies are up-to-date and secure.
+
 ### Getting Help
 - 📖 Check the [documentation](https://github.com/BankkRoll/streamer-alerts-discord-bot/wiki)
 - 🐛 [Report issues](https://github.com/kernferm/streamer-alerts-discord-bot/issues)
@@ -305,10 +331,18 @@ We welcome contributions to make this bot even better! Here's how you can help:
 ## 🔒 Security
 
 This project follows security best practices:
-- 🔐 No sensitive data stored in code
-- 🛡️ Input validation and sanitization
-- 🚫 No elevated system permissions required
-- 📋 Regular dependency updates
+- 🔐 **Environment Variables**: Sensitive data (tokens) stored in environment variables, not in code
+- 🛡️ **Input Validation**: All user inputs are validated and sanitized
+- 🚫 **Minimal Permissions**: No elevated system permissions required
+- 📋 **Dependency Updates**: Regular security updates for all dependencies
+- 🔒 **Git Security**: `.gitignore` configured to prevent accidental token commits
+- 🌍 **Environment Separation**: Different configurations for development and production
+
+### 🔧 Security Configuration
+- Use `.env` files for local development
+- Set environment variables on production servers
+- Never commit sensitive data to version control
+- Regularly rotate bot tokens and API keys
 
 See our [Security Policy](./SECURITY.md) for more details.
 
