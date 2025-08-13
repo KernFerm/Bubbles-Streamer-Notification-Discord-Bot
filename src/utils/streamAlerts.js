@@ -1,7 +1,7 @@
 // src/utils/streamAlerts.js
 const { guildSettings } = require("../../db");
 const { createEmbed } = require("./embed");
-const { MessageActionRow, MessageButton } = require('discord.js');
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { checkTwitchLive } = require("./twitch");
 const { checkYouTubeLive } = require("./youtube");
 const { checkRumbleLive } = require("./rumble");
@@ -12,56 +12,80 @@ const lastLiveData = new Map();
 
 module.exports = {
   init: (client) => {
+    console.log("Initializing stream alerts system...");
+    // Check every minute
     setInterval(() => checkStreamers(client), 60 * 1000);
+    // Initial check after 10 seconds
+    setTimeout(() => checkStreamers(client), 10000);
   },
 };
 
 async function checkStreamers(client) {
-  if (client.guilds.cache.size === 0) return;
+  if (client.guilds.cache.size === 0) {
+    console.log("No guilds available for stream checking");
+    return;
+  }
+
+  console.log(`Checking streams for ${client.guilds.cache.size} guilds...`);
 
   for (const [guildId, guild] of client.guilds.cache) {
-    let streamers = guildSettings.get(guildId, "streamers") || [];
+    try {
+      let streamers = guildSettings.get(guildId, "streamers") || [];
 
-    for (let i = 0; i < streamers.length; i++) {
-      try {
-        const liveInfo = await checkIfLive(streamers[i]);
-        const liveStreamKey = `${guildId}-${streamers[i].id}`;
-        const lastLive = lastLiveData.get(liveStreamKey);
+      if (streamers.length === 0) continue;
 
-        const shouldSendEmbed =
-          liveInfo.isLive &&
-          (!lastLive || lastLive.title !== liveInfo.streamer.title);
+      console.log(`Checking ${streamers.length} streamers for guild ${guild.name}`);
+
+      for (let i = 0; i < streamers.length; i++) {
+        try {
+          const liveInfo = await checkIfLive(streamers[i]);
+          const liveStreamKey = `${guildId}-${streamers[i].id}`;
+          const lastLive = lastLiveData.get(liveStreamKey);
+
+          const shouldSendEmbed =
+            liveInfo.isLive &&
+            (!lastLive || lastLive.title !== liveInfo.streamer.title);
 
           if (shouldSendEmbed) {
             const channel = client.channels.cache.get(streamers[i].channelID);
             if (channel) {
-              const { embed, components } = createStreamerEmbed(liveInfo.streamer);
-              await channel.send({ embeds: [embed], components });
+              try {
+                const { embed, components } = createStreamerEmbed(liveInfo.streamer);
+                await channel.send({ embeds: [embed], components });
+                console.log(`Sent live alert for ${streamers[i].name} in ${guild.name}`);
+              } catch (channelError) {
+                console.error(`Failed to send message to channel ${streamers[i].channelID}:`, channelError);
+              }
+            } else {
+              console.warn(`Channel ${streamers[i].channelID} not found for streamer ${streamers[i].name}`);
             }
 
-          lastLiveData.set(liveStreamKey, {
-            title: liveInfo.streamer.title,
-            imageUrl: liveInfo.streamer.imageUrl,
+            lastLiveData.set(liveStreamKey, {
+              title: liveInfo.streamer.title,
+              imageUrl: liveInfo.streamer.imageUrl,
+              isLive: liveInfo.isLive,
+            });
+          }
+
+          if (!liveInfo.isLive && lastLiveData.has(liveStreamKey)) {
+            lastLiveData.delete(liveStreamKey);
+          }
+
+          streamers[i] = {
+            ...streamers[i],
+            ...liveInfo.streamer,
             isLive: liveInfo.isLive,
-          });
+            lastLiveAt: liveInfo.isLive ? new Date() : streamers[i].lastLiveAt,
+          };
+        } catch (error) {
+          console.error(`Error during live check for ${streamers[i].name}:`, error);
+          streamers[i].error = error.message;
         }
-
-        if (!liveInfo.isLive && lastLiveData.has(liveStreamKey)) {
-          lastLiveData.delete(liveStreamKey);
-        }
-
-        streamers[i] = {
-          ...streamers[i],
-          ...liveInfo.streamer,
-          lastLiveAt: liveInfo.isLive ? new Date() : streamers[i].lastLiveAt,
-        };
-        await guildSettings.set(guildId, "streamers", streamers);
-      } catch (error) {
-        console.error(
-          `Error during live check for ${streamers[i].name}:`,
-          error
-        );
       }
+
+      await guildSettings.set(guildId, "streamers", streamers);
+    } catch (guildError) {
+      console.error(`Error checking streamers for guild ${guildId}:`, guildError);
     }
   }
 }
@@ -77,8 +101,10 @@ async function checkIfLive(streamer) {
 
   const checker = platformCheckers[streamer.platform.toLowerCase()];
   if (checker) {
-    return checker(streamer);
+    return await checker(streamer);
   }
+  
+  console.warn(`No checker available for platform: ${streamer.platform}`);
   return { isLive: false, streamer };
 }
 
@@ -91,16 +117,18 @@ function createStreamerEmbed(streamer) {
     tiktok: { color: '#000000', emoji: '🔳' },
   };
 
-  const currentPlatform = platformDetails[streamer.platform.toLowerCase()] || { color: 'DEFAULT', emoji: '🔴' };
+  const currentPlatform = platformDetails[streamer.platform.toLowerCase()] || { color: '#0099ff', emoji: '🔴' };
 
   let description = `${streamer.username || streamer.name} is live now on [${
     streamer.platform
   }](${streamer.url}).`;
+  
   if (streamer.bio) {
     description += "\n\n" + streamer.bio;
   }
 
   const fields = [];
+  
   if (streamer.viewers) {
     fields.push({
       name: "👀 Viewers",
@@ -108,6 +136,7 @@ function createStreamerEmbed(streamer) {
       inline: true,
     });
   }
+  
   if (streamer.startedAt) {
     let startedAtDate = new Date(streamer.startedAt);
     if (!startedAtDate.getTime()) {
@@ -123,10 +152,8 @@ function createStreamerEmbed(streamer) {
       });
     }
   }
-  const followerLabel =
-    streamer.platform.toLowerCase() === "youtube"
-      ? "👥 Subscribers"
-      : "👥 Followers";
+  
+  const followerLabel = streamer.platform.toLowerCase() === "youtube" ? "👥 Subscribers" : "👥 Followers";
   if (streamer.followersCount) {
     fields.push({
       name: followerLabel,
@@ -134,17 +161,18 @@ function createStreamerEmbed(streamer) {
       inline: true,
     });
   }
+  
   if (streamer.verified) {
     fields.push({ name: "✅ Verified", value: "Yes", inline: true });
   }
 
-  const button = new MessageButton()
-    .setLabel(`${streamer.name} live now on ${streamer.platform}!`)
-    .setStyle('LINK')
+  const button = new ButtonBuilder()
+    .setLabel(`Watch ${streamer.name} on ${streamer.platform}!`)
+    .setStyle(ButtonStyle.Link)
     .setURL(streamer.url)
     .setEmoji(currentPlatform.emoji);
 
-  const row = new MessageActionRow().addComponents(button);
+  const row = new ActionRowBuilder().addComponents(button);
 
   return {
     embed: createEmbed({
@@ -154,6 +182,7 @@ function createStreamerEmbed(streamer) {
       color: currentPlatform.color,
       image: streamer.imageUrl || undefined,
       fields: fields,
+      timestamp: true,
     }),
     components: [row]
   };
