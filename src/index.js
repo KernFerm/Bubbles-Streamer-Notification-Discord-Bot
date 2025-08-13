@@ -1,9 +1,38 @@
 // src/index.js
-require("sapphire-plugin-modal-commands/register");
+require("dotenv").config();
 const { SapphireClient } = require("@sapphire/framework");
 const { ActivityType, IntentsBitField } = require("discord.js");
 const { guildSettings } = require("../db");
-const config = require("../config.json");
+
+// Configuration from environment variables
+let config;
+try {
+  config = {
+    token: process.env.DISCORD_TOKEN,
+    applicationId: process.env.DISCORD_APPLICATION_ID,
+    color: process.env.BOT_COLOR || "#61CB2B",
+    footerText: process.env.FOOTER_TEXT || "Streamer Alerts Bot",
+    footerIcon: process.env.FOOTER_ICON || "https://i.ibb.co/Bqs3jh7/6302741.png"
+  };
+} catch (error) {
+  console.error("⚠️  Configuration Error: Please set up your environment variables");
+  console.error("See .env.example for required environment variables");
+  process.exit(1);
+}
+
+// Validate required configuration
+if (!config.token) {
+  console.error("❌ Error: DISCORD_TOKEN is required!");
+  console.error("Please set DISCORD_TOKEN in your .env file");
+  process.exit(1);
+}
+
+if (!config.applicationId) {
+  console.error("⚠️  Warning: DISCORD_APPLICATION_ID is not set!");
+  console.error("This may cause issues with slash commands and OAuth2.");
+  console.error("Please add DISCORD_APPLICATION_ID to your .env file");
+}
+
 const streamAlerts = require("./utils/streamAlerts");
 
 const activities = [
@@ -27,6 +56,8 @@ const client = new SapphireClient({
     IntentsBitField.Flags.GuildMembers,
     IntentsBitField.Flags.GuildMessages,
   ],
+  // Set the application ID if available
+  ...(config.applicationId && { applicationId: config.applicationId }),
 });
 
 client.once("ready", () => {
