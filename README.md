@@ -1,4 +1,9 @@
-# 🎬 Streamer Alerts Discord Bot
+# <div align="center">
+
+![Discord.js](https://img.shields.io/badge/Discord.js-v14.21.0+-blue.svg)
+![Node.js](https://img.shields.io/badge/Node.js-16.x+-green.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Maintenance](https://img.shields.io/badge/Maintained-Yes-brightgreen.svg)eamer Alerts Discord Bot
 
 <div align="center">
 
