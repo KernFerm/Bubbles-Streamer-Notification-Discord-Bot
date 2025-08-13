@@ -13,7 +13,7 @@
   "author": "bankkroll",
   "license": "MIT",
   "dependencies": {
-    "@sapphire/discord.js-utilities": "^5.0.0",
+    "@sapphire/discord.js-utilities": "^7.3.3",
     "@sapphire/framework": "^3.1.0",
     "@sapphire/ratelimits": "^2.4.4",
     "@sapphire/time-utilities": "^1.7.6",
