@@ -362,6 +362,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](./LICE
 > Please ensure your use of this bot complies with the Terms of Service of each streaming platform. We are not responsible for any violations or account restrictions.
 
 ### Credits
+- **Active Maintainer**: [BubblesTheDev](https://github.com/kernferm)
 - Built by [BankkRoll](https://github.com/BankkRoll)
 - Powered by [Sapphire Framework](https://www.sapphiredev.org/)
 - Enhanced & Built With ❤️ by [BubblesTheDev](https://github.com/kernferm)
