@@ -16,7 +16,7 @@
 
 ## 📋 Overview
 
-![Screenshot 2023-11-08 193646](https://github.com/BankkRoll/streamer-alerts-discord-bot/assets/106103625/c84acc03-0a29-4862-ae6d-cf6f19f8347d)
+![pic](https://github.com/KernFerm/Bubbles-Streamer-Notification-Discord-Bot/blob/main/screenshot/screenshot-noti.png)
 
 **Streamer Alerts Bot** is a feature-rich Discord bot built with the Sapphire Framework that automatically monitors your favorite streamers across multiple platforms and sends instant notifications when they go live. Perfect for communities wanting to stay updated with their favorite content creators!
 
