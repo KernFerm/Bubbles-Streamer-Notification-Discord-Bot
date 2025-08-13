@@ -314,7 +314,7 @@ See our [Security Policy](./SECURITY.md) for more details.
 ## 📄 License & Legal
 
 ### License
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+This project is licensed under the Apache License License - see the [LICENSE](./LICENSE) file for details.
 
 ### Important Disclaimers
 
