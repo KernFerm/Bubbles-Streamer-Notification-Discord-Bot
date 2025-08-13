@@ -11,7 +11,7 @@ try {
     token: process.env.DISCORD_TOKEN,
     applicationId: process.env.DISCORD_APPLICATION_ID,
     color: process.env.BOT_COLOR || "#61CB2B",
-    footerText: process.env.FOOTER_TEXT || "Streamer Alerts Bot",
+    footerText: process.env.FOOTER_TEXT || "Bubbles Streamer Notification Bot",
     footerIcon: process.env.FOOTER_ICON || "https://i.ibb.co/Bqs3jh7/6302741.png"
   };
 } catch (error) {
