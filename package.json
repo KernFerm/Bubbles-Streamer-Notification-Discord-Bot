@@ -10,8 +10,8 @@
     "lint": "eslint . --fix",
     "test": "jest"
   },
-  "author": "bankkroll",
-  "license": "MIT",
+  "author": "BubblesTheDev",
+  "license": "Apache-2.0",
   "dependencies": {
     "@sapphire/discord.js-utilities": "^7.3.3",
     "@sapphire/framework": "^5.3.6",
