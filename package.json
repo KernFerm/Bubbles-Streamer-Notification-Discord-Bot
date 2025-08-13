@@ -18,7 +18,7 @@
     "@sapphire/ratelimits": "^2.4.4",
     "@sapphire/time-utilities": "^1.7.6",
     "discord.js": "^13.16.0",
-    "enmap": "^5.9.1",
+    "enmap": "^6.0.5",
     "kick.com-api": "^0.1.52",
     "moment": "^2.29.4",
     "sapphire-plugin-modal-commands": "^1.0.9",
