@@ -1,0 +1,1 @@
+- https://github.com/KernFerm/Bubbles-Streamer-Notification-Discord-Bot/discussions/12#discussioncomment-14215156
