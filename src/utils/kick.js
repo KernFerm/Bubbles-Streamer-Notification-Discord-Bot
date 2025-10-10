@@ -34,6 +34,17 @@ async function checkKickLive(streamer) {
         ? data.user.bio.replace(/\[7TV:[^\]]+\]/g, "").trim()
         : null;
 
+      // Process thumbnail URL - handle both string and object formats
+      let thumbnailUrl = null;
+      const thumbnail = data.livestream.thumbnail;
+      if (thumbnail) {
+        if (typeof thumbnail === 'string') {
+          thumbnailUrl = thumbnail;
+        } else if (typeof thumbnail === 'object' && thumbnail.url) {
+          thumbnailUrl = thumbnail.url;
+        }
+      }
+
       const result = {
         isLive: true,
         streamer: {
@@ -46,7 +57,7 @@ async function checkKickLive(streamer) {
           verified: data.verified || false,
           title: data.livestream.session_title || "Live Stream",
           viewers: data.livestream.viewer_count || null,
-          imageUrl: data.livestream.thumbnail || null,
+          imageUrl: thumbnailUrl,
           startedAt: data.livestream.created_at || null,
           url: safeUrl,
           game: data.livestream.categories && data.livestream.categories.length > 0 
