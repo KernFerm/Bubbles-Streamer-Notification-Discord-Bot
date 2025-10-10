@@ -18,11 +18,11 @@ class AddStreamerCommand extends Command {
     registry.registerChatInputCommand((builder) =>
       builder
         .setName(this.name)
-        .setDescription(this.description)
+        .setDescription("Add a streamer to track across multiple platforms.")
         .addStringOption((option) =>
           option
             .setName("platform")
-            .setDescription("The platform of the streamer")
+            .setDescription("The streaming platform")
             .setRequired(true)
             .addChoices(
               { name: "YouTube", value: "youtube" },
@@ -51,7 +51,7 @@ class AddStreamerCommand extends Command {
 
   async chatInputRun(interaction) {
     try {
-      await interaction.deferReply({ ephemeral: true });
+      await interaction.deferReply({ flags: 64 }); // 64 = MessageFlags.Ephemeral
 
       if (!interaction.member.permissions.has(PermissionFlagsBits.Administrator)) {
         const embed = createEmbed({
@@ -156,7 +156,7 @@ class AddStreamerCommand extends Command {
       if (interaction.replied || interaction.deferred) {
         await interaction.followUp({ embeds: [errorEmbed] });
       } else {
-        await interaction.reply({ embeds: [errorEmbed], ephemeral: true });
+        await interaction.reply({ embeds: [errorEmbed], flags: 64 });
       }
     }
   }
