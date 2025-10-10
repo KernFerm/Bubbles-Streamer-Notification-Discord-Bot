@@ -166,7 +166,39 @@
 
 ## 🏗️ Project Structure
 
-
+```
+Streamer-Noti-Bot/
+├── src/
+│   ├── commands/
+│   │   ├── admin/
+│   │   │   ├── addstreamer.js      # Add streamers to tracking
+│   │   │   └── removestreamer.js   # Remove streamers from tracking
+│   │   └── util/
+│   │       ├── help.js             # Command help system
+│   │       ├── liststreamers.js    # List tracked streamers with real-time status
+│   │       └── ping.js             # Bot latency check
+│   ├── listeners/
+│   │   └── interactionCreate.js    # Handle Discord interactions
+│   ├── utils/
+│   │   ├── confirm.js              # Confirmation utility (Discord.js v14)
+│   │   ├── embed.js                # Enhanced embed creation utility
+│   │   ├── streamAlerts.js         # Advanced stream monitoring system
+│   │   ├── twitch.js               # Twitch platform handler (API + GraphQL)
+│   │   ├── youtube.js              # YouTube platform handler (Enhanced)
+│   │   ├── kick.js                 # Kick platform handler (API-based)
+│   │   ├── rumble.js               # Rumble platform handler (Enhanced)
+│   │   ├── tiktok.js               # TikTok platform handler (Live API)
+│   │   └── nimotv.js               # NimoTV platform handler (NEW!)
+│   ├── index.js                    # Main bot entry point
+│   └── db.js                       # Database configuration
+├── data/                           # Database storage (auto-created)
+├── .env                            # Environment configuration
+├── .gitignore                      # Git ignore file for security
+├── config.json                     # Bot configuration
+├── db.js                           # Main database management
+├── package.json                    # Project dependencies
+└── README.md                       # This file
+```
 
 ## ⚙️ Advanced Configuration
 
