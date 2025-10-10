@@ -174,9 +174,14 @@ Configure your bot securely using the `.env` file:
 
 ```env
 # Discord Bot Configuration
-DISCORD_TOKEN=your_discord_bot_token_here
-CLIENT_ID=your_discord_application_client_id_here
-GUILD_ID=your_discord_server_guild_id_here
+DISCORD_TOKEN=
+DISCORD_APPLICATION_ID=
+BOT_COLOR=#61CB2B
+FOOTER_TEXT=Bubbles Streamer Notification Bot
+FOOTER_ICON=https://i.ibb.co/Bqs3jh7/6302741.png
+
+# Optional: Database settings (if using external database)
+# DATABASE_URL=your_database_url_here
 
 # Bot Settings
 NODE_ENV=production
