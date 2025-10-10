@@ -42,13 +42,16 @@ async function checkStreamers(client) {
           const liveInfo = await checkIfLive(streamers[i]);
           const liveStreamKey = `${guildId}-${streamers[i].id}`;
           const lastLive = lastLiveData.get(liveStreamKey);
+          const wasLiveInDB = streamers[i].isLive; // Check database status
+          
+          console.log(`Debug for ${streamers[i].name}: isLive=${liveInfo.isLive}, wasLiveInDB=${wasLiveInDB}, hasLastLive=${!!lastLive}`);
 
           // Send alert when:
-          // 1. Going from offline to online
+          // 1. Going from offline to online (not previously live in DB)
           // 2. Game/category changes while live
           const shouldSendEmbed =
             liveInfo.isLive && (
-              !lastLive || // First time going live
+              (!lastLive && !wasLiveInDB) || // First time going live (not in memory AND not in DB)
               (lastLive && lastLive.game !== liveInfo.streamer.game) // Game changed
             );
 
