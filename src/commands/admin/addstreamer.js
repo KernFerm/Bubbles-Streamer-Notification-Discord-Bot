@@ -29,7 +29,8 @@ class AddStreamerCommand extends Command {
               { name: "Twitch", value: "twitch" },
               { name: "Kick", value: "kick" },
               { name: "Rumble", value: "rumble" },
-              { name: "TikTok", value: "tiktok" }
+              { name: "TikTok", value: "tiktok" },
+              { name: "NimoTV", value: "nimotv" }
             )
         )
         .addStringOption((option) =>
