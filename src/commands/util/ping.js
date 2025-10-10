@@ -62,9 +62,9 @@ class PingCommand extends Command {
       });
       
       if (interaction.replied || interaction.deferred) {
-        await interaction.followUp({ embeds: [errorEmbed], ephemeral: true });
+        await interaction.followUp({ embeds: [errorEmbed], flags: 64 });
       } else {
-        await interaction.reply({ embeds: [errorEmbed], ephemeral: true });
+        await interaction.reply({ embeds: [errorEmbed], flags: 64 });
       }
     }
   }
