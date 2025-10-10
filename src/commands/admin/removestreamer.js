@@ -56,7 +56,7 @@ class RemoveStreamerCommand extends Command {
 
   async chatInputRun(interaction) {
     try {
-      await interaction.deferReply({ ephemeral: true });
+      await interaction.deferReply({ flags: 64 }); // 64 = MessageFlags.Ephemeral
 
       if (!interaction.member.permissions.has(PermissionFlagsBits.ManageChannels)) {
         const embed = createEmbed({
@@ -154,7 +154,7 @@ class RemoveStreamerCommand extends Command {
       if (interaction.replied || interaction.deferred) {
         await interaction.followUp({ embeds: [errorEmbed] });
       } else {
-        await interaction.reply({ embeds: [errorEmbed], ephemeral: true });
+        await interaction.reply({ embeds: [errorEmbed], flags: 64 });
       }
     }
   }
