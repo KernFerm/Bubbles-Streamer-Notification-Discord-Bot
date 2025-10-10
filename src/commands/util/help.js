@@ -33,7 +33,7 @@ class HelpCommand extends Command {
           description: "No commands available.",
           color: "#ff9900",
         });
-        return interaction.reply({ embeds: [embed], ephemeral: true });
+        return interaction.reply({ embeds: [embed], flags: 64 });
       }
 
       const selectMenu = new StringSelectMenuBuilder()
@@ -64,7 +64,7 @@ class HelpCommand extends Command {
       const reply = await interaction.reply({
         embeds: [embed],
         components: [row],
-        ephemeral: true,
+        flags: 64, // MessageFlags.Ephemeral
         withResponse: true,
       });
 
@@ -129,9 +129,9 @@ class HelpCommand extends Command {
       });
       
       if (interaction.replied || interaction.deferred) {
-        await interaction.followUp({ embeds: [errorEmbed], ephemeral: true });
+        await interaction.followUp({ embeds: [errorEmbed], flags: 64 });
       } else {
-        await interaction.reply({ embeds: [errorEmbed], ephemeral: true });
+        await interaction.reply({ embeds: [errorEmbed], flags: 64 });
       }
     }
   }
