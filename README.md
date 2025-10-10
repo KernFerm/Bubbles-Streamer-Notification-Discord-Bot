@@ -182,9 +182,6 @@ FOOTER_ICON=https://i.ibb.co/Bqs3jh7/6302741.png
 
 # Optional: Database settings (if using external database)
 # DATABASE_URL=your_database_url_here
-
-# Bot Settings
-NODE_ENV=production
 ```
 
 ### 🎨 Bot Customization
