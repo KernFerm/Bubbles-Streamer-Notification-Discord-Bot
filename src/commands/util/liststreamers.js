@@ -26,7 +26,7 @@ class ListStreamersCommand extends Command {
 
   async chatInputRun(interaction) {
     try {
-      await interaction.deferReply({ ephemeral: true });
+      await interaction.deferReply({ flags: 64 }); // 64 = MessageFlags.Ephemeral
 
       const guildId = interaction.guildId;
       const streamers = guildSettings.get(guildId, "streamers", []);
@@ -143,7 +143,7 @@ class ListStreamersCommand extends Command {
       if (interaction.replied || interaction.deferred) {
         await interaction.editReply({ embeds: [errorEmbed] });
       } else {
-        await interaction.reply({ embeds: [errorEmbed], ephemeral: true });
+        await interaction.reply({ embeds: [errorEmbed], flags: 64 });
       }
     }
   }
