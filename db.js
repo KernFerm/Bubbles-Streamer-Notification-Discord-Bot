@@ -1,5 +1,5 @@
 // db.js
-const Enmap = require("enmap");
+const Enmap = require("enmap").default;
 
 /**
  * Streamer data structure:
