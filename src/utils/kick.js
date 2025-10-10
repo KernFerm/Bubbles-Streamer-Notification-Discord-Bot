@@ -1,5 +1,6 @@
 // src/utils/kick.js
-const { KickApiWrapper } = require("kick.com-api");
+const { constructSafeUrl } = require('./urlSanitizer');
+const kick = require('kick.com-api');
 
 /**
  * Check if a Kick streamer is live
@@ -12,6 +13,10 @@ async function checkKickLive(streamer) {
   
   try {
     console.log(`Checking Kick live status for ${streamer.name}...`);
+    
+    // Construct safe URL
+    const safeUrl = constructSafeUrl('kick', streamer.name);
+    
     kickApi = new KickApiWrapper();
     const data = await kickApi.fetchChannelData(streamer.name);
     
@@ -41,11 +46,9 @@ async function checkKickLive(streamer) {
           verified: data.verified || false,
           title: data.livestream.session_title || "Live Stream",
           viewers: data.livestream.viewer_count || null,
-          imageUrl: (data.livestream.thumbnail && typeof data.livestream.thumbnail === 'object' && data.livestream.thumbnail.url) 
-                   ? data.livestream.thumbnail.url 
-                   : (typeof data.livestream.thumbnail === 'string' ? data.livestream.thumbnail : data.user.profile_pic || null),
-          startedAt: data.livestream.start_time || null,
-          url: `https://kick.com/${streamer.name}`,
+          imageUrl: data.livestream.thumbnail || null,
+          startedAt: data.livestream.created_at || null,
+          url: safeUrl,
           game: data.livestream.categories && data.livestream.categories.length > 0 
                 ? data.livestream.categories[0].name 
                 : (data.recent_categories && data.recent_categories.length > 0 
@@ -63,17 +66,26 @@ async function checkKickLive(streamer) {
       streamer: {
         ...streamer,
         platform: "kick",
-        url: `https://kick.com/${streamer.name}`,
+        url: safeUrl,
       }
     };
   } catch (error) {
     console.error(`Error checking Kick live status for ${streamer.name}:`, error);
+    
+    // Use a safe fallback URL or null if sanitization failed
+    let fallbackUrl = null;
+    try {
+      fallbackUrl = constructSafeUrl('kick', streamer.name);
+    } catch (sanitizeError) {
+      console.warn(`Failed to sanitize streamer name for fallback URL: ${sanitizeError.message}`);
+    }
+    
     return { 
       isLive: false, 
       streamer: {
         ...streamer,
         platform: "kick",
-        url: `https://kick.com/${streamer.name}`,
+        url: fallbackUrl,
         error: error.message,
       }
     };
