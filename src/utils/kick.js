@@ -1,6 +1,6 @@
 // src/utils/kick.js
 const { constructSafeUrl } = require('./urlSanitizer');
-const kick = require('kick.com-api');
+const { KickApiWrapper } = require('kick.com-api');
 
 /**
  * Check if a Kick streamer is live
